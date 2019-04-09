@@ -1,0 +1,63 @@
+
+<! The template for the xml!>
+<?xml version="1.0" encoding="UTF-8"?>
+<serendib>
+   <namespaces>
+		<namespace>
+			<name></name>
+		</namespace>
+   </namespaces>
+
+   <fields>
+		<field>
+			<name></name>
+			<type></type>
+			<length> </length>           
+			<decimals></decimals>           
+			<elements></elements>           
+			<description></description>           
+			<enumeration_name></enumeration_name>           
+			<display_name></display_name>           
+			<is_fixed_length></is_fixed_length>           
+			<max_element> </max_element>           
+			<fix_tag> </fix_tag>           
+			<namespace></namespace>
+		</field>
+   </fields>
+  
+   <messages>
+		<namespace >
+		<message>
+			<name></name>
+			<description></description>           
+			<fix_tag></fix_tag>           
+			<namespace></namespace>
+		</message>
+	</messages>
+        
+   <message_fields>
+		<namespace >
+			<message >
+				<message_field >
+					<name></name>
+					<transportable></transportable>           
+					<namespace></namespace>
+				</message_field>
+			</message >           
+		</namespace >         
+	</message_fields>
+
+   <services>
+		<service>
+		   <name></name>
+		   <id></id>
+		   <type></type>
+		   <port_list></port_list>
+		   <description></description>
+		   <group></group>
+		   <compression></compression>
+		</service> 
+   </services>
+   
+</serendib>
+

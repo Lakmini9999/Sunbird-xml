@@ -1,0 +1,178 @@
+
+
+<! The template for the xml!>
+<?xml version="1.0" encoding="UTF-8"?>
+<referencedata>
+	<fields>
+		<field>
+			<field_name></field_name>
+			<data_type></data_type>
+			<maximum_length></maximum_length> 
+			<description></description> 
+			<is_visible></is_visible> 
+			<is_used_for_rules></is_used_for_rules> 
+			<table></table>           
+			<category_name></category_name>           
+			<display_format_id></display_format_id>           
+			<fix_field_tag></fix_field_tag>           
+			<enumeration_name></enumeration_name>             
+			<decimals></decimals>           
+			<maximum_length></maximum_length>           
+			<source_entity_id></source_entity_id>           
+			<definition_id></definition_id>           
+			<ref_column></ref_column>           
+		</field>
+	</fields>
+
+<entities>
+	<entity>
+		<entity_id></entity_id>
+		<display_name></display_name>
+		<entity_display_name></entity_display_name>
+		<plural></plural>           
+		<type></type>           
+		<prefix></prefix>           
+		<entity_plural_display_name></entity_plural_display_name>           
+		<serendib_message_name></serendib_message_name>           
+		<is_instance_created></is_instance_created>           
+		<description></description>           
+		<visible_in_fe></visible_in_fe>           
+		<is_used_for_rules></is_used_for_rules>           
+		<is_visible_in_roles></is_visible_in_roles>           
+		<visible_in_search></visible_in_search>           
+		<extended_property_definitions>
+		<property_name></property_name>"
+		<data_type></data_type>
+		<def_length></def_length>               
+		<def_isNullable></def_isNullable> 
+		<def_dataDefault><def_dataDefault>           
+		</extended_property_definitions>
+	</entity>
+
+	<entity>
+		<description> </description>           
+		<visible_in_fe> </visible_in_fe>           
+		<display_name> </display_name>           
+		<plural> </plural>           
+		<entity_id> </entity_id>           
+		<prefix> </prefix>           
+	</entity>
+
+	<entity>
+		<entry_description></entry_description>           
+		<display_name></display_name>           
+		<entry_plural></entry_plural>           
+		<entity_id></entity_id>           
+		<prefix></prefix>           
+	</entity>
+</entities>
+
+
+<definitions>
+	<feature.entities : {entity |
+	<entity.definitions : {definition | <\t>\<definition entity_name="<entity.name>">
+			   <definition_id><definition.name>\</definition_id>
+			   <serendib_message_name><definition.SerendibMessageName>\</serendib_message_name>           
+			   <description><definition.description>\</description>           
+				<definition_extendedProperties>
+				<<property.propertyName>\><property.propertyValue>\</<property.propertyName>\>
+				</definition_extendedProperties>
+	}>
+	<\t>\</definition>
+	}>
+	}>
+	<feature.tables : { table |
+	   \<definition entity_name="<table.entry.display_name>">
+		\<definition_id><table.entry.name>\</definition_id>
+		\<tabular_struct_type><table.entry.tabular_struct_type>\</tabular_struct_type>
+		\<type><table.entry.type>\</type>
+	  \</definition>
+	  \<definition entity_name="<table.display_name>">
+		\<definition_id><table.name>\</definition_id>
+		\<tabular_entry_definition_id><table.tabular_entry_definition_id>\</tabular_entry_definition_id>
+		\<dependency_type><table.dependency_type>\</dependency_type>
+		\<tabular_struct_type><table.tabular_struct_type>\</tabular_struct_type>
+		\<type><table.type>\</type>
+				   (table.privilege_code)>\<privilege_code><table.privilege_code>\</privilege_code>           
+	   \</definition>
+	}>
+</definitions>
+
+
+\<definition_fields>
+<feature.entities : {entity |
+<entity.definitions : {definition |
+<definition.fields : {definition_field | <\t>\<definition_field>
+<addDefinitionField(entity.entityId, definition.name, definition_field)>
+<\t>\</definition_field>
+}>
+}>
+}>
+<feature.tables : { table |
+  <table.fields : { field |
+    \<definition_field>
+    <addDefinitionField(table.table_entity_id, table.name, field)>
+    \</definition_field>
+  }>
+}>
+<feature.tables : { table |
+             (table.entry)>
+    <table.entry.fields : { field |
+      \<definition_field>
+      <addDefinitionField(table.entry.table_entry_entity_id, table.entry.name, field)>
+      \</definition_field>
+    }>
+             
+}>
+\</definition_fields>
+\<instances>
+<feature.instances : {instance |
+<\t>\<instance entity_name="<instance.entityName>" definition_name="<instance.definitionName>">
+<instance.keyAttributes : {attribute |
+           <attribute key="true" name="<attribute.attributeName>"><attribute.attributeValue>\</attribute>
+}>
+<instance.instanceAttributes : {attribute |
+           (attribute.sourceInstance)>           <attribute name="<attribute.attributeName>">
+<addChildInstance(attribute.sourceInstance)>
+           </attribute>
+<else>           <attribute name="<attribute.attributeName>"><attribute.attributeValue>\</attribute>           
+}>
+<\t>\</instance>
+}>
+\</instances>
+
+\</referencedata>
+
+>>
+
+addChildInstance(instance) ::= <<
+  <\t>           <instance entity_name="<instance.entityName>" definition_name="<instance.definitionName>">
+  <instance.instanceAttributes : {attribute |
+               (attribute.sourceInstance)><\t><\t>           <attribute name="<attribute.attributeName>">
+      <addChildInstance(attribute.sourceInstance)>
+      <\t><\t>           </attribute>
+    <else>
+      <\t><\t>           <attribute name="<attribute.attributeName>"><attribute.attributeValue>\</attribute>
+               
+  }>
+  <\t>           </instance>
+>>
+
+addDefinitionField(entity_id, definition_id, field) ::= <<
+             (entity_id)>\<entity_id><entity_id>\</entity_id>           
+             (definition_id)>\<definition_id><definition_id>\</definition_id>           
+  \<field_name><field.name>\</field_name>
+             (field.attachName)>\<attach_name><field.attachName>\</attach_name>           
+  \<description><field.description>\</description>
+  \<no_fill><field.hiddenInFE>\</no_fill>
+  \<is_used_for_rules><field.visibleInRules>\</is_used_for_rules>
+  \<default_value><field.defaultValue>\</default_value>
+  \<display_format_id><field.displayFormat>\</display_format_id>
+  \<ref_data_file_field_xml_tag><field.xmlTag>\</ref_data_file_field_xml_tag>
+  \<must_fill><field.required>\</must_fill>
+  \<is_key_field><field.key>\</is_key_field>
+  \<can_amend><field.amendable>\</can_amend>
+  \<can_amend_intra_day><field.intradayAmendable>\</can_amend_intra_day>
+  \<can_mass_amend><field.massAmendable>\</can_mass_amend>
+  \<entity_name><field.entityName>\</entity_name>
+>>
